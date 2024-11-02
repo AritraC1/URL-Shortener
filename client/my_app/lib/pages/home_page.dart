@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
       body: jsonEncode({'originalURL' : _textEditingController.text}),
     );
 
+    print('Response status: ${response.statusCode}'); // Debugging output
     if (response.statusCode == 200) {
       // Parse the shortened URL from the response
       final data = jsonDecode(response.body);
