@@ -37,8 +37,21 @@ class _HomePageState extends State<HomePage> {
       // Navigate to ShortPage with the shortened URL
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => ShortPage(shortUrl: shortUrl),
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => ShortPage(shortUrl: shortUrl),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0); // Start from right
+            const end = Offset.zero; // End at center
+            const curve = Curves.easeInOut;
+
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(
+              position: offsetAnimation,
+              child: child,
+            );
+          },
         ),
       );
     }
