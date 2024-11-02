@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_app/utils/colours.dart';
 import 'package:my_app/widgets/custom_btn.dart';
 import 'package:my_app/widgets/custom_header_text.dart';
@@ -86,9 +87,11 @@ class _ShortPageState extends State<ShortPage> {
                 CustomBtn(
                   text: 'Copy Url',
                   onPressed: () {
-                    if (ModalRoute.of(context)?.settings.name != '/short') {
-                      Navigator.pushNamed(context, '/short');
-                    }
+                    // Copy the shortened URL to the clipboard
+                    Clipboard.setData(ClipboardData(text: _textEditingController.text));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("URL copied to clipboard!")),
+                    );
                   },
                 ),
               ],
