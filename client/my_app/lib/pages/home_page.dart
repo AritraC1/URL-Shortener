@@ -17,39 +17,74 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width and height
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Set shape sizes relative to screen size
+    final shapeSize = screenWidth * 0.5; // Adjust 0.5 based on preferred scale
+
     return Scaffold(
       backgroundColor: Colours.bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Header
-            const CustomHeaderText(text: 'URL Shortener'),
-
-            const SizedBox(height: 30),
-
-            // Text form
-            CustomTextFormField(
-              textEditingController: _textEditingController,
-              text: 'Paste a long url',
+      body: Stack(
+        children: [
+          // Background elements
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              width: shapeSize,
+              height: shapeSize,
+              decoration: const BoxDecoration(
+                color: Colours.circlesColor,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(250),
+                ),
+              ),
             ),
-
-            const SizedBox(height: 16),
-
-            // Button
-            CustomBtn(
-              text: 'Shorten',
-              onPressed: () {
-                // To Send the link to nodejs server to shorten
-                Navigator.pushNamed(context, '/short');
-              },
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              width: shapeSize,
+              height: shapeSize,
+              decoration: const BoxDecoration(
+                color: Colours.circlesColor,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(250),
+                ),
+              ),
             ),
-          ],
-        ),
+          ),
+          // Main content
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Header
+                const CustomHeaderText(text: 'URL Shortener'),
+
+                const SizedBox(height: 30),
+
+                // Text form
+                CustomTextFormField(
+                  textEditingController: _textEditingController,
+                  text: 'Paste a long URL',
+                ),
+
+                const SizedBox(height: 16),
+
+                // Button
+                CustomBtn(
+                  text: 'Shorten',
+                  onPressed: () {
+                    // Send the link to the Node.js server to shorten
+                    Navigator.pushNamed(context, '/short');
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
