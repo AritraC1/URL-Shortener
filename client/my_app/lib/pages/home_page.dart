@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/pages/short_page.dart';
 import 'package:my_app/utils/colours.dart';
 import 'package:my_app/widgets/custom_btn.dart';
 import 'package:my_app/widgets/custom_header_text.dart';
+import 'package:my_app/widgets/custom_page_route.dart';
 import 'package:my_app/widgets/custom_text_form_field.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                   text: 'Shorten',
                   onPressed: () {
                     // Send the link to the Node.js server to shorten
-                    Navigator.pushNamed(context, '/short');
+                    Navigator.of(context).push(createSlideRoute(const ShortPage()));
                   },
                 ),
               ],

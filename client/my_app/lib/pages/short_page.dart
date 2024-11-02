@@ -27,18 +27,20 @@ class _ShortPageState extends State<ShortPage> {
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
+              padding: const EdgeInsets.only(left: 15, top: 40),
               child: IconButton(
                 onPressed: () {
                   Navigator.pop(context); // Go back to the previous page
                 },
                 icon: const Icon(
-                  Icons.arrow_back_ios,
+                  Icons.arrow_back,
                   color: Colors.white,
+                  size: 35,
                 ),
               ),
             ),
           ),
+
           // Top-right decorative shape
           Align(
             alignment: Alignment.topRight,
@@ -51,6 +53,7 @@ class _ShortPageState extends State<ShortPage> {
               ),
             ),
           ),
+
           // Bottom-left decorative shape
           Align(
             alignment: Alignment.bottomLeft,
@@ -63,6 +66,7 @@ class _ShortPageState extends State<ShortPage> {
               ),
             ),
           ),
+
           // Main content
           Padding(
             padding: const EdgeInsets.all(20.0),
