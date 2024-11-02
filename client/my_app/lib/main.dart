@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/' : (context) => const HomePage(),
-        '/short' : (context) => const ShortPage(),
+        '/short' : (context) => const ShortPage(shortUrl: '',),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

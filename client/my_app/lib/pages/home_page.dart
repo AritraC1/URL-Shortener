@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:my_app/pages/short_page.dart';
 import 'package:my_app/utils/colours.dart';
 import 'package:my_app/widgets/custom_btn.dart';
 import 'package:my_app/widgets/custom_header_text.dart';
-import 'package:my_app/widgets/custom_page_route.dart';
 import 'package:my_app/widgets/custom_text_form_field.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +17,37 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _textEditingController = TextEditingController();
+
+  Future<void> shortUrl() async{
+    // URL of NodeJs server
+    final url = Uri.parse('http://localhost:5001/url/shorten');
+
+    // Make a POST request to send the original URL
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'originalURL' : _textEditingController.text}),
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the shortened URL from the response
+      final data = jsonDecode(response.body);
+      final shortUrl = data['shortUrl'];
+
+      // Navigate to ShortPage with the shortened URL
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ShortPage(shortUrl: shortUrl),
+        ),
+      );
+    }
+
+    else {
+      // Handle error
+      print('Failed to shorten URL: ${response.statusCode}');
+    }
+  }
 
 
   @override
@@ -78,10 +111,7 @@ class _HomePageState extends State<HomePage> {
                 // Button
                 CustomBtn(
                   text: 'Shorten',
-                  onPressed: () {
-                    // Send the link to the Node.js server to shorten
-                    Navigator.of(context).push(createSlideRoute(const ShortPage()));
-                  },
+                  onPressed: shortUrl,
                 ),
               ],
             ),

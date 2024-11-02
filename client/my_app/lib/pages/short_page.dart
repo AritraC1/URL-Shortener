@@ -6,7 +6,9 @@ import 'package:my_app/widgets/custom_header_text.dart';
 import 'package:my_app/widgets/custom_text_form_field.dart';
 
 class ShortPage extends StatefulWidget {
-  const ShortPage({super.key});
+  final String shortUrl;
+
+  const ShortPage({super.key, required this.shortUrl});
 
   @override
   State<ShortPage> createState() => _ShortPageState();
