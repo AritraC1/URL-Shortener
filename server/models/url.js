@@ -5,19 +5,21 @@ const urlSchema = new mongoose.Schema(
         shortId: {
             type: String,
             required: true,
-            unique: true,
+            unique: true, // Ensure the shortId is unique in the collection
         },
-        redirectURl: {
+        redirectUrl: {
             type: String,
             required: true,
         },
         visitHistory: [{
-            timeStamp: {type: Number}
+            timeStamp: {type: Number} // Track the timestamp of visits
+            // Add more information here if needed (e.g., IP, user-agent)
         }],
     }, 
-    {timestamps: true}
+    {timestamps: true} // Automatically manage createdAt and updatedAt fields
 );
 
-const URL = mongoose.model('url', urlSchema);
+// Define the URL model
+const URL = mongoose.model('URL', urlSchema); // capitalized model name according naming convention
 
 module.exports = URL;
