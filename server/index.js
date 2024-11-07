@@ -18,7 +18,7 @@ const MONGOURL = process.env.MONGO_CONNECTION_STRING;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(morgan('combined'));  // Logs all incoming requests
+app.use(morgan('combined'));  // Logs all incoming requests also 'Morgan is a Node.js middleware that logs HTTP requests and responses to and from an application'
 
 // Connect to MongoDB before starting the server
 connectToMongoDB(MONGOURL)

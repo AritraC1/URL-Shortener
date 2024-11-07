@@ -1,6 +1,7 @@
 const { nanoid } = require('nanoid'); // shortid is deprecated
 const URL = require("../models/url");
 const { isURL } = require('validator'); // Package to validate the URL format
+const { response } = require('express');
 
 
 async function handleGenerateNewShortURL(req, res) {
@@ -43,6 +44,17 @@ async function handleGenerateNewShortURL(req, res) {
     }
 }
 
+async function handleGetAnalytics(req, res) {
+    const shortId = req.params.shortId;
+    const result = await URL.findOne({shortId});  // database query 
+
+    return res.json({
+        totalClicks: result.visitHistory.length, 
+        analytics:  result.visitHistory,
+    });
+}
+
 module.exports = {
     handleGenerateNewShortURL,
+    handleGetAnalytics,
 };
