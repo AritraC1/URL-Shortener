@@ -15,25 +15,37 @@ class ShortPage extends StatefulWidget {
 }
 
 class _ShortPageState extends State<ShortPage> {
-  final TextEditingController _textEditingController = TextEditingController();
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the text controller with the shortened URL
+    _textEditingController = TextEditingController(text: widget.shortUrl);
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final shapeSize = screenWidth * 0.5; // Adjust this as needed
+    final shapeSize = screenWidth * 0.5;
 
     return Scaffold(
       backgroundColor: Colours.bgColor,
       body: Stack(
         children: [
-          // Top-left corner arrow button
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.only(left: 15, top: 40),
               child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context); // Go back to the previous page
+                  Navigator.pop(context);
                 },
                 icon: const Icon(
                   Icons.arrow_back,
@@ -43,8 +55,6 @@ class _ShortPageState extends State<ShortPage> {
               ),
             ),
           ),
-
-          // Top-right decorative shape
           Align(
             alignment: Alignment.topRight,
             child: Container(
@@ -56,8 +66,6 @@ class _ShortPageState extends State<ShortPage> {
               ),
             ),
           ),
-
-          // Bottom-left decorative shape
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
@@ -69,25 +77,20 @@ class _ShortPageState extends State<ShortPage> {
               ),
             ),
           ),
-
-          // Main content
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Header
-                const CustomHeaderText(text: 'Shortened Url'),
+                const CustomHeaderText(text: 'Shortened URL'),
                 const SizedBox(height: 30),
-                // Text form
                 CustomTextFormField(
                   textEditingController: _textEditingController,
                   text: '',
                 ),
                 const SizedBox(height: 16),
-                // Button
                 CustomBtn(
-                  text: 'Copy Url',
+                  text: 'Copy URL',
                   onPressed: () {
                     // Copy the shortened URL to the clipboard
                     Clipboard.setData(ClipboardData(text: _textEditingController.text));
